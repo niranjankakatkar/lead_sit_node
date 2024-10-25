@@ -5,6 +5,8 @@ const userSchema = new mongoose.Schema({
     email: String,
     mobileno:String,
     password: String,
+    filename:String,
+    filepath:String, 
     activeFlag: {type: String, enum:["1","0"],default:"0"},
     deleteFlag: {type: String, enum:["1","0"],default:"0"}
     

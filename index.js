@@ -6,13 +6,21 @@ const PORT = process.env.PORT || 5000;
 const bodyParser= require("body-parser");
 
 const userAPI= require("./routes/user");
-const franchaiseRoute= require("./routes/franchisee");
+const franchaiseAPI = require("./routes/franchisee");
+const employeeAPI = require("./routes/employee");
+const moduleAPI = require("./routes/module");
+const categoryAPI = require("./routes/category");
+const subcategoryAPI = require("./routes/subcategory");
 
 app.use(bodyParser.json());
 app.use(cors());
 
 app.use("/user",userAPI);
-app.use("/franchisee", franchaiseRoute);
+app.use("/franchisee", franchaiseAPI);
+app.use("/employee", employeeAPI);
+app.use("/module", moduleAPI);
+app.use("/category", categoryAPI);
+app.use("/subcategory", subcategoryAPI);
 
 
 

@@ -1,12 +1,38 @@
 const express = require("express");
+const multer = require("multer");
 const cors = require("cors");
 const app = express();
 const router = express.Router();
 
 const UserModel=require("../models/user");
 
-router.post('/createUser',(req,res)=>{
-    UserModel.create(req.body)
+//Multer----------------------
+const storage=multer.diskStorage({
+    destination:function(req,file,cb){
+       return cb(null,"./document/users")
+    },
+    filename:function (req,file,cb) {
+        const uniqueSuffix=`${Date.now()}_${file.originalname}`;
+        return cb(null,uniqueSuffix);
+    }
+});
+
+const upload =multer({storage: storage});
+
+router.post("/uploadimg",upload.single("file"),async(req,res)=>{
+    console.log(req.file);
+    console.log(req.body);
+    
+})
+
+router.post('/createUser',upload.single("file"),async(req,res)=>{
+    const name=req.body.name;
+    const email=req.body.email;
+    const mobileno=req.body.mobileno;
+    const password=req.body.password;
+    const {path,filename}=req.file;
+    
+    UserModel.create({name:name,email:email,mobileno:mobileno,password:password,filepath:path,filename: filename})
     .then(users=>res.json(users))
     .catch(err=>res.json(err))
 })
