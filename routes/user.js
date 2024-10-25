@@ -2,6 +2,7 @@ const express = require("express");
 const multer = require("multer");
 const cors = require("cors");
 const app = express();
+
 const router = express.Router();
 
 const UserModel=require("../models/user");
@@ -43,6 +44,20 @@ router.get('/getAllUser',(req,res)=>{
     .catch(err=>res.json(err))
 })
 
+router.get('/getImageUser/:id',(req,res)=>{
+    const id=req.params.id
+    try {
+       const file= UserModel.findById({ _id: id});
+       if(!image) res.send({"msg":"Image Not Found"})
+
+        const filepath=path.join(__dirname,"../document/users",image.filename);
+        res.sendFile(filepath);
+    } catch (error) {
+        res.send({"error":"Image Not Found"+error}) 
+    }
+   
+})
+
 //router.post("/register",signupController.createUser);
 
 router.get('/getSingleUser/:id',(req,res)=>{
@@ -71,6 +86,41 @@ router.delete('/deleteSingleUser/:id',(req,res)=>{
     .then(post=>res.json(post))
     .catch(err=>res.json(err))
 })
+
+router.get('/getAllCnt',(req,res)=>{
+
+    UserModel.countDocuments().then((count_documents) => {
+    
+      res.send({"cnt":""+count_documents}) 
+    }).catch((err) => {
+        res.send({"error":""+err}) 
+    })
+   
+})
+
+
+router.get('/getActiveCnt',(req,res)=>{
+
+    UserModel.countDocuments({activeFlag:{$gt:1}}).then((count_documents) => {
+    
+      res.send({"cnt":""+count_documents}) 
+    }).catch((err) => {
+        res.send({"error":""+err}) 
+    })
+   
+})
+
+router.get('/getInactiveCnt',(req,res)=>{
+
+    UserModel.countDocuments({activeFlag:{$gt:0}}).then((count_documents) => {
+    
+      res.send({"cnt":""+count_documents}) 
+    }).catch((err) => {
+        res.send({"error":""+err}) 
+    })
+   
+})
+
 
 
 module.exports = router;

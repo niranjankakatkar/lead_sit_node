@@ -12,8 +12,11 @@ const moduleAPI = require("./routes/module");
 const categoryAPI = require("./routes/category");
 const subcategoryAPI = require("./routes/subcategory");
 
+const path=require("path");
+
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static("./document"))
 
 app.use("/user",userAPI);
 app.use("/franchisee", franchaiseAPI);
