@@ -30,7 +30,6 @@ router.put("/updateSingleModule/:id", (req, res) => {
     { _id: id },
     {
       module: req.body.module,
-      imageurl: req.body.imageurl,
       activeFlag: req.body.activeFlag,
       deleteFlag: req.body.deleteFlag,
     }
@@ -45,5 +44,31 @@ router.delete("/deleteSingleModule/:id", (req, res) => {
     .then((post) => res.json(post))
     .catch((err) => res.json(err));
 });
+
+
+router.get('/getAllCnt',(req,res)=>{
+    ModuleModel.countDocuments().then((count_documents) => {
+    res.send({"cnt":""+count_documents}) 
+  }).catch((err) => {
+      res.send({"error":""+err}) 
+  })
+})
+
+
+router.get('/getActiveCnt',(req,res)=>{
+    ModuleModel.countDocuments({activeFlag:1},{}).then((count_documents) => {
+    res.send({"cnt":""+count_documents}) 
+  }).catch((err) => {
+      res.send({"error":""+err}) 
+  }) 
+})
+
+router.get('/getInactiveCnt',(req,res)=>{
+    ModuleModel.countDocuments({activeFlag:0},{}).then((count_documents1) => {
+    res.send({"cnt":""+count_documents1}) 
+  }).catch((err) => {
+      res.send({"error":""+err}) 
+  }) 
+})
 
 module.exports = router;

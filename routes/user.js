@@ -88,37 +88,28 @@ router.delete('/deleteSingleUser/:id',(req,res)=>{
 })
 
 router.get('/getAllCnt',(req,res)=>{
-
     UserModel.countDocuments().then((count_documents) => {
-    
-      res.send({"cnt":""+count_documents}) 
+    res.send({"cnt":""+count_documents}) 
     }).catch((err) => {
         res.send({"error":""+err}) 
-    })
-   
+    })   
 })
 
 
 router.get('/getActiveCnt',(req,res)=>{
-
-    UserModel.countDocuments({activeFlag:{$gt:1}}).then((count_documents) => {
-    
-      res.send({"cnt":""+count_documents}) 
+    UserModel.countDocuments({activeFlag:1},{}).then((count_documents) => {
+    res.send({"cnt":""+count_documents}) 
     }).catch((err) => {
         res.send({"error":""+err}) 
-    })
-   
+    })  
 })
 
 router.get('/getInactiveCnt',(req,res)=>{
-
-    UserModel.countDocuments({activeFlag:{$gt:0}}).then((count_documents) => {
-    
-      res.send({"cnt":""+count_documents}) 
+    UserModel.countDocuments({activeFlag:0},{}).then((count_documents1) => {
+    res.send({"cnt":""+count_documents1}) 
     }).catch((err) => {
         res.send({"error":""+err}) 
     })
-   
 })
 
 

@@ -3,38 +3,40 @@ const cors = require("cors");
 const app = express();
 const router = express.Router();
 
-const EmployeeModel = require("../models/employee");
+const selleronboardingModel = require("../models/selleronboarding");
 
-router.post("/createEmployee", (req, res) => {
-  EmployeeModel.create(req.body)
+router.post("/createSeller", (req, res) => {
+  selleronboardingModel.create(req.body)
     .then((users) => res.json(users))
     .catch((err) => res.json(err));
 });
 
-router.get("/getAllEmployee", (req, res) => {
-  EmployeeModel.find()
+router.get("/getAllSeller", (req, res) => {
+  selleronboardingModel.find()
     .then((users) => res.json(users))
     .catch((err) => res.json(err));
 });
 
-router.get("/getSingleEmployee/:id", (req, res) => {
+router.get("/getSingleSeller/:id", (req, res) => {
   const id = req.params.id;
-  EmployeeModel.findById({ _id: id })
+  selleronboardingModel.findById({ _id: id })
     .then((post) => res.json(post))
     .catch((err) => res.json(err));
 });
 
-router.put("/updateSingleEmployee/:id", (req, res) => {
+router.put("/updateSingleSeller/:id", (req, res) => {
   const id = req.params.id;
-  EmployeeModel.findByIdAndUpdate(
+  selleronboardingModel.findByIdAndUpdate(
     { _id: id },
     {
-      fname: req.body.fname,
-      mname: req.body.mname,
-      lname: req.body.lname,
+      name: req.body.name,
+     
       email: req.body.email,
       mobileno: req.body.mobileno,
-      password: req.body.password,
+      bname: req.body.bname,
+      btype: req.body.btype,
+      baddress: req.body.baddress,
+      pincode: req.body.pincode,
       activeFlag: req.body.activeFlag,
       deleteFlag: req.body.deleteFlag,
     }
@@ -43,15 +45,15 @@ router.put("/updateSingleEmployee/:id", (req, res) => {
     .catch((err) => res.json(err));
 });
 
-router.delete("/deleteSingleEmployee/:id", (req, res) => {
+router.delete("/deleteSingleSeller/:id", (req, res) => {
   const id = req.params.id;
-  EmployeeModel.findByIdAndDelete({ _id: id })
+  selleronboardingModel.findByIdAndDelete({ _id: id })
     .then((post) => res.json(post))
     .catch((err) => res.json(err));
 });
 
 router.get('/getAllCnt',(req,res)=>{
-  EmployeeModel.countDocuments().then((count_documents) => {
+  selleronboardingModel.countDocuments().then((count_documents) => {
   res.send({"cnt":""+count_documents}) 
   }).catch((err) => {
       res.send({"error":""+err}) 
@@ -60,7 +62,7 @@ router.get('/getAllCnt',(req,res)=>{
 
 
 router.get('/getActiveCnt',(req,res)=>{
-  EmployeeModel.countDocuments({activeFlag:1},{}).then((count_documents) => {
+  selleronboardingModel.countDocuments({activeFlag:1},{}).then((count_documents) => {
   res.send({"cnt":""+count_documents}) 
   }).catch((err) => {
       res.send({"error":""+err}) 
@@ -68,7 +70,7 @@ router.get('/getActiveCnt',(req,res)=>{
 })
 
 router.get('/getInactiveCnt',(req,res)=>{
-  EmployeeModel.countDocuments({activeFlag:0},{}).then((count_documents1) => {
+  selleronboardingModel.countDocuments({activeFlag:0},{}).then((count_documents1) => {
   res.send({"cnt":""+count_documents1}) 
   }).catch((err) => {
       res.send({"error":""+err}) 

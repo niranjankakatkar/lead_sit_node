@@ -5,12 +5,16 @@ const PORT = process.env.PORT || 5000;
 
 const bodyParser= require("body-parser");
 
+const authAPI= require("./routes/authontication");
 const userAPI= require("./routes/user");
 const franchaiseAPI = require("./routes/franchisee");
 const employeeAPI = require("./routes/employee");
 const moduleAPI = require("./routes/module");
 const categoryAPI = require("./routes/category");
 const subcategoryAPI = require("./routes/subcategory");
+const selleronboardAPI = require("./routes/selleronboarding");
+const merchantonboardAPI = require("./routes/merchantonboarding");
+
 
 const path=require("path");
 
@@ -18,22 +22,26 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static("./document"))
 
+app.use("/auth",authAPI);
 app.use("/user",userAPI);
 app.use("/franchisee", franchaiseAPI);
 app.use("/employee", employeeAPI);
 app.use("/module", moduleAPI);
 app.use("/category", categoryAPI);
 app.use("/subcategory", subcategoryAPI);
+app.use("/selleronboarding", selleronboardAPI);
+app.use("/merchantonboarding", merchantonboardAPI);
 
-const UserModel=require("./models/user");
+const authModel=require("./models/authontication");
 
 app.post("/auth/login",(req,res)=>{
     const{email,password}=req.body;
-    UserModel.findOne({email:email})
+    authModel.findOne({email:email})
     .then(user=>{
+        console.log(user);
         if(user){
             if(user.password===password){
-                res.send({"msg":"1","id":""+user._id}) 
+                res.send({"msg":"1","id":""+user._id+"","loginID":""+user.loginID,"post":""+user.post}) 
             }else{
                 res.send({"msg":"0"}) 
             }
