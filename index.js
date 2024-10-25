@@ -25,7 +25,23 @@ app.use("/module", moduleAPI);
 app.use("/category", categoryAPI);
 app.use("/subcategory", subcategoryAPI);
 
+const UserModel=require("./models/user");
 
+app.post("/auth/login",(req,res)=>{
+    const{email,password}=req.body;
+    UserModel.findOne({email:email})
+    .then(user=>{
+        if(user){
+            if(user.password===password){
+                res.send({"msg":"1","id":""+user._id}) 
+            }else{
+                res.send({"msg":"0"}) 
+            }
+        }else{
+            res.send({"msg":""}) 
+        }
+    })
+})
 
 app.listen(PORT,()=>{
     console.log(`Server is running on : htpp://localhost:${PORT}`);

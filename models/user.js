@@ -12,5 +12,9 @@ const userSchema = new mongoose.Schema({
     
 });
 
+userSchema.set('timestamp',{
+    createdAt: "crdAt",
+    updatedAt:"updAt"
+})
 
 module.exports=mongoose.model("User",userSchema);
