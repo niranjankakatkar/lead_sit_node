@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     filename:String,
     filepath:String, 
+    moduleID:String,
     activeFlag: {type: String, enum:["1","0"],default:"1"},
     deleteFlag: {type: String, enum:["1","0"],default:"0"},
     createdAt: {type: Date, default: Date.now},

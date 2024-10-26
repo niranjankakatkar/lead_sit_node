@@ -1,9 +1,34 @@
 const express = require("express");
+const multer = require("multer");
 const cors = require("cors");
 const app = express();
 const router = express.Router();
 
 const ModuleModel = require("../models/module");
+
+
+//Multer----------------------
+const storage=multer.diskStorage({
+  destination:function(req,file,cb){
+     return cb(null,"./document/module")
+  },
+  filename:function (req,file,cb) {
+      const uniqueSuffix=`${Date.now()}_${file.originalname}`;
+      return cb(null,uniqueSuffix);
+  }
+});
+
+const upload =multer({storage: storage});
+
+router.post('/createModuleImg',upload.single("file"),async(req,res)=>{
+  const module=req.body.module;
+  const {path,filename}=req.file;
+  
+  ModuleModel.create({module:module,filepath:path,filename: filename})
+  .then(users=>res.json(users))
+  .catch(err=>res.json(err))
+})
+
 
 router.post("/createModule", (req, res) => {
   ModuleModel.create(req.body)
