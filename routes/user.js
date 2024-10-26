@@ -27,6 +27,7 @@ router.post("/uploadimg",upload.single("file"),async(req,res)=>{
 })
 
 router.post('/createUserImg',upload.single("file"),async(req,res)=>{
+   console.log("2222222222222222222222222222222222");
     const name=req.body.name;
     const email=req.body.email;
     const mobileno=req.body.mobileno;
@@ -38,12 +39,14 @@ router.post('/createUserImg',upload.single("file"),async(req,res)=>{
     .catch(err=>res.json(err))
 })
 
-router.post('/createUser',async(req,res)=>{
+router.post('/createUser',(req,res)=>{
+    console.log("11111111111111111111111111111111111111111");
     const name=req.body.name;
     const email=req.body.email;
     const mobileno=req.body.mobileno;
     const password=req.body.password;
-    const {path,filename}="";
+    const path="";
+    const filename="";
     
     UserModel.create({name:name,email:email,mobileno:mobileno,password:password,filepath:path,filename: filename})
     .then(users=>res.json(users))
