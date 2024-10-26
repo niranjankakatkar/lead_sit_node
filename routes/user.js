@@ -26,12 +26,24 @@ router.post("/uploadimg",upload.single("file"),async(req,res)=>{
     
 })
 
-router.post('/createUser',upload.single("file"),async(req,res)=>{
+router.post('/createUserImg',upload.single("file"),async(req,res)=>{
     const name=req.body.name;
     const email=req.body.email;
     const mobileno=req.body.mobileno;
     const password=req.body.password;
     const {path,filename}=req.file;
+    
+    UserModel.create({name:name,email:email,mobileno:mobileno,password:password,filepath:path,filename: filename})
+    .then(users=>res.json(users))
+    .catch(err=>res.json(err))
+})
+
+router.post('/createUser',async(req,res)=>{
+    const name=req.body.name;
+    const email=req.body.email;
+    const mobileno=req.body.mobileno;
+    const password=req.body.password;
+    const {path,filename}="";
     
     UserModel.create({name:name,email:email,mobileno:mobileno,password:password,filepath:path,filename: filename})
     .then(users=>res.json(users))
