@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 5000;
 
 const bodyParser= require("body-parser");
 
+const admin_authAPI= require("./routes/admin_auth");
 const authAPI= require("./routes/authontication");
 const userAPI= require("./routes/user");
 const franchaiseAPI = require("./routes/franchisee");
@@ -33,10 +34,28 @@ app.use("/selleronboarding", selleronboardAPI);
 app.use("/merchantonboarding", merchantonboardAPI);
 
 const authModel=require("./models/authontication");
+const admin_authModel=require("./models/admin_auth");
 
 app.post("/auth/login",(req,res)=>{
     const{email,password}=req.body;
     authModel.findOne({email:email})
+    .then(user=>{
+        console.log(user);
+        if(user){
+            if(user.password===password){
+                res.send({"msg":"1","id":""+user._id+"","loginID":""+user.loginID,"post":""+user.post}) 
+            }else{
+                res.send({"msg":"0"}) 
+            }
+        }else{
+            res.send({"msg":""}) 
+        }
+    })
+})
+
+app.post("/admin_auth",(req,res)=>{
+    const{username,password}=req.body;
+    admin_authModel.findOne({username:username})
     .then(user=>{
         console.log(user);
         if(user){
