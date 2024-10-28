@@ -23,6 +23,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static("./document"))
 
+app.use("/admin",admin_authAPI);
 app.use("/auth",authAPI);
 app.use("/user",userAPI);
 app.use("/franchisee", franchaiseAPI);
@@ -53,7 +54,7 @@ app.post("/auth/login",(req,res)=>{
     })
 })
 
-app.post("/admin_auth",(req,res)=>{
+app.post("/admin/admin_auth",(req,res)=>{
     const{username,password}=req.body;
     admin_authModel.findOne({username:username})
     .then(user=>{
