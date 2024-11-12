@@ -21,14 +21,14 @@ const upload = multer({ storage: storage });
 
 router.post("/createCategoryImg", upload.single("file"), async (req, res) => {
   const category = req.body.category;
-  const moduleID = req.body.moduleId; // Change moduleId to moduleID here
+  const moduleId = req.body.moduleId;
   const { path, filename } = req.file;
 
   CategoryModel.create({
     category: category,
     filepath: path,
     filename: filename,
-    moduleID: moduleID, // Ensure this matches your schema
+    moduleId: moduleId, // Ensure this matches your schema
   })
     .then((category) => res.json(category))
     .catch((err) => res.json(err));

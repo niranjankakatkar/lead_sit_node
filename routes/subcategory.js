@@ -23,20 +23,24 @@ router.post(
   "/createSubcategoryImg",
   upload.single("file"),
   async (req, res) => {
-    const subcategory = req.body.subcategory;
-    const categoryId = req.body.categoryId;
-    const moduleID = req.body.moduleId; // Change moduleId to moduleID here
+    const { subcategory, categoryId, moduleId } = req.body; // Retrieve from form data
     const { path, filename } = req.file;
 
-    SubcategoryModel.create({
-      subcategory: subcategory,
-      filepath: path,
-      filename: filename,
-      categoryId: categoryId,
-      moduleID: moduleID,
-    })
-      .then((category) => res.json(category))
-      .catch((err) => res.json(err));
+    try {
+      const newSubcategory = await SubcategoryModel.create({
+        subcategory,
+        categoryId,
+        moduleId,
+        filename,
+        filepath: path,
+        activeFlag: "1",
+        deleteFlag: "0",
+      });
+      res.json(newSubcategory);
+    } catch (err) {
+      console.error("Error saving subcategory:", err);
+      res.status(500).json({ error: "Error saving subcategory" });
+    }
   }
 );
 
