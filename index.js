@@ -17,6 +17,7 @@ const serviceAPI = require("./routes/service");
 const selleronboardAPI = require("./routes/selleronboarding");
 const merchantonboardAPI = require("./routes/merchantonboarding");
 const serviceleaddetailsAPI = require("./routes/serviceleaddetails");
+const sellerAPI = require("./routes/seller");
 
 const path = require("path");
 
@@ -27,6 +28,7 @@ app.use(express.static("./document"));
 app.use("/admin", admin_authAPI);
 app.use("/auth", authAPI);
 app.use("/user", userAPI);
+app.use("/seller", sellerAPI);
 app.use("/franchisee", franchaiseAPI);
 app.use("/employee", employeeAPI);
 app.use("/module", moduleAPI);

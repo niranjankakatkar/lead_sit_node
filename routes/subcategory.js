@@ -50,6 +50,7 @@ router.post("/createSubcategory", (req, res) => {
     .catch((err) => res.json(err));
 });
 
+//web
 router.get("/getSubcategoriesByCategory/:categoryId", (req, res) => {
   const categoryId = req.params.categoryId;
 
@@ -72,22 +73,28 @@ router.get("/getSubcategoriesByCategory/:categoryId", (req, res) => {
 
 router.get("/getAllSubcategory", (req, res) => {
   SubcategoryModel.find()
-    .populate("category")
-    .populate("module")
-    .then((subcategories) => {
-      const result = subcategories.map((subcategory) => ({
-        _id: subcategory._id,
-        subcategory: subcategory.subcategory,
-        category: subcategory.category ? subcategory.category.category : null, // Access the category name
-        module: subcategory.module ? subcategory.module.module : null, // Access the module name
-        activeFlag: subcategory.activeFlag,
-        deleteFlag: subcategory.deleteFlag,
-        createdAt: subcategory.createdAt,
-        updatedAt: subcategory.updatedAt,
-      }));
-      res.json(result);
+    .then((users) => res.json(users))
+    .catch((err) => res.json(err));
+});
+
+router.get("/getCategoriesByModule/:moduleId", (req, res) => {
+  const moduleId = req.params.moduleId;
+
+  SubcategoryModel.find({ moduleID: moduleId })
+    .then((categories) => {
+      if (categories.length === 0) {
+        return res
+          .status(404)
+          .json({ message: "No categories found for this module ID" });
+      }
+      res.json(categories);
     })
-    .catch((err) => res.status(500).json(err));
+    .catch((err) =>
+      res.status(500).json({
+        error: "An error occurred while fetching categories",
+        details: err,
+      })
+    );
 });
 
 router.get("/getSingleSubcategory/:id", (req, res) => {

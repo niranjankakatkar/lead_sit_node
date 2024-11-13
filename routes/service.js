@@ -35,6 +35,7 @@ router.post("/createServiceImg", upload.single("file"), async (req, res) => {
     .catch((err) => res.json(err));
 });
 
+//web
 router.get("/getServicesBySubcategory/:subcategoryId", (req, res) => {
   const subcategoryId = req.params.subcategoryId;
 
@@ -55,6 +56,7 @@ router.get("/getServicesBySubcategory/:subcategoryId", (req, res) => {
     );
 });
 
+//web
 router.get("/getServicesByCategory/:categoryId", (req, res) => {
   const categoryId = req.params.categoryId;
 
@@ -79,6 +81,23 @@ router.post("/createService", (req, res) => {
   ServiceModel.create(req.body)
     .then((users) => res.json(users))
     .catch((err) => res.json(err));
+});
+
+// Backend route to fetch subcategories based on category ID
+router.get("/getSubcategoriesByCategory/:categoryId", (req, res) => {
+  const { categoryId } = req.params;
+
+  SubcategoryModel.find({ categoryId }) // Fetches subcategories by categoryId
+    .then((subcategories) => {
+      if (subcategories.length > 0) {
+        res.json(subcategories);
+      } else {
+        res
+          .status(404)
+          .json({ message: "No subcategories found for this category." });
+      }
+    })
+    .catch((err) => res.status(500).json(err));
 });
 
 router.get("/getAllService", (req, res) => {
