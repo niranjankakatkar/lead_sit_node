@@ -2,7 +2,7 @@ const mongoose = require("../config/dbConfig");
 
 const authSchema = new mongoose.Schema({
     name:String,
-    email:String,
+    username:String,
     password: String,
     post:String,
     loginID:String,

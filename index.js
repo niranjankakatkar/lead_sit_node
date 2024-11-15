@@ -18,6 +18,11 @@ const selleronboardAPI = require("./routes/selleronboarding");
 const merchantonboardAPI = require("./routes/merchantonboarding");
 const serviceleaddetailsAPI = require("./routes/serviceleaddetails");
 const sellerAPI = require("./routes/seller");
+const advertisementAPI = require("./routes/advertisement");
+const bannerAPI = require("./routes/banner");
+const cashbcakAPI = require("./routes/cashback");
+const couponAPI = require("./routes/coupons");
+const pushnotificationAPI = require("./routes/pushnotification");
 
 const path = require("path");
 
@@ -29,6 +34,11 @@ app.use("/admin", admin_authAPI);
 app.use("/auth", authAPI);
 app.use("/user", userAPI);
 app.use("/seller", sellerAPI);
+app.use("/advertisement", advertisementAPI);
+app.use("/banner", bannerAPI);
+app.use("/cashback", cashbcakAPI);
+app.use("/coupon", couponAPI);
+app.use("/pushnotification", pushnotificationAPI);
 app.use("/franchisee", franchaiseAPI);
 app.use("/employee", employeeAPI);
 app.use("/module", moduleAPI);

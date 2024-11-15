@@ -10,7 +10,7 @@ const authModel=require("../models/authontication");
 
 router.post('/createAuth',(req,res)=>{
     const name=req.body.name;
-    const email=req.body.email;
+    const username=req.body.username;
     const password=req.body.password;
     const post=req.body.post;
     const loginID=req.body.loginID;
