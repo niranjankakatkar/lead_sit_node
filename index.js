@@ -24,6 +24,8 @@ const cashbcakAPI = require("./routes/cashback");
 const couponAPI = require("./routes/coupons");
 const pushnotificationAPI = require("./routes/pushnotification");
 
+const MenuAssignAPI = require("./routes/menu_assign_master");
+
 const path = require("path");
 
 app.use(bodyParser.json());
@@ -47,6 +49,7 @@ app.use("/category", categoryAPI);
 app.use("/subcategory", subcategoryAPI);
 app.use("/selleronboarding", selleronboardAPI);
 app.use("/merchantonboarding", merchantonboardAPI);
+app.use("/menuassign", MenuAssignAPI);
 
 app.use("/serviceleaddetails", serviceleaddetailsAPI);
 
