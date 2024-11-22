@@ -80,7 +80,7 @@ router.get("/getAllSubcategory", (req, res) => {
 router.get("/getCategoriesByModule/:moduleId", (req, res) => {
   const moduleId = req.params.moduleId;
 
-  SubcategoryModel.find({ moduleID: moduleId })
+  SubcategoryModel.find({ moduleId: moduleId })
     .then((categories) => {
       if (categories.length === 0) {
         return res
@@ -96,6 +96,7 @@ router.get("/getCategoriesByModule/:moduleId", (req, res) => {
       })
     );
 });
+
 
 router.get("/getSingleSubcategory/:id", (req, res) => {
   const id = req.params.id;

@@ -29,6 +29,9 @@ router.post(
   "/createAdvertisementImg",
   upload.single("file"),
   async (req, res) => {
+    const moduleId = req.body.moduleId;
+    const categoryId = req.body.categoryId;
+    const subcategoryId = req.body.subcategoryId;
     const title = req.body.title;
     const description = req.body.description;
     const seller = req.body.seller;
@@ -40,6 +43,9 @@ router.post(
     const { path, filename } = req.file;
 
     AdvertisementModel.create({
+      moduleId: moduleId,
+      categoryId: categoryId,
+      subcategoryId: subcategoryId,
       title: title,
       description: description,
       seller: seller,

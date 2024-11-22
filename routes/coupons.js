@@ -26,6 +26,9 @@ router.post("/uploadimg", upload.single("file"), async (req, res) => {
 });
 
 router.post("/createCouponImg", upload.single("file"), async (req, res) => {
+  const moduleId = req.body.moduleId;
+  const categoryId = req.body.categoryId;
+  const subcategoryId = req.body.subcategoryId;
   const title = req.body.title;
   const coupontype = req.body.coupontype;
   const store = req.body.store;
@@ -42,6 +45,9 @@ router.post("/createCouponImg", upload.single("file"), async (req, res) => {
   const { path, filename } = req.file;
 
   CouponModel.create({
+    moduleId: moduleId,
+    categoryId: categoryId,
+    subcategoryId: subcategoryId,
     title: title,
     coupontype: coupontype,
     store: store,

@@ -29,6 +29,9 @@ router.post(
   "/createPushNotificationImg",
   upload.single("file"),
   async (req, res) => {
+    const moduleId = req.body.moduleId;
+  const categoryId = req.body.categoryId;
+  const subcategoryId = req.body.subcategoryId; 
     const title = req.body.title;
     const zone = req.body.zone;
     const sendto = req.body.sendto;
@@ -37,6 +40,9 @@ router.post(
     const { path, filename } = req.file;
 
     PushNotificationModel.create({
+      moduleId: moduleId,
+    categoryId: categoryId,
+    subcategoryId: subcategoryId,
       title: title,
       zone: zone,
       sendto: sendto,

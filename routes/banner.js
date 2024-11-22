@@ -26,6 +26,9 @@ router.post("/uploadimg", upload.single("file"), async (req, res) => {
 });
 
 router.post("/createBannerImg", upload.single("file"), async (req, res) => {
+ const moduleId = req.body.moduleId;
+  const categoryId = req.body.categoryId;
+  const subcategoryId = req.body.subcategoryId; 
   const title = req.body.title;
   const zone = req.body.zone;
   const type = req.body.type;
@@ -34,34 +37,13 @@ router.post("/createBannerImg", upload.single("file"), async (req, res) => {
   const { path, filename } = req.file;
 
   AdvertisementModel.create({
+    moduleId: moduleId,
+    categoryId: categoryId,
+    subcategoryId: subcategoryId,
     title: title,
     zone: zone,
     type: type,
     seller: seller,
-    filepath: path,
-    filename: filename,
-  })
-    .then((users) => res.json(users))
-    .catch((err) => res.json(err));
-});
-
-router.post("/createBanner", (req, res) => {
-  const title = req.body.title;
-  const description = req.body.description;
-  const seller = req.body.seller;
-  const priority = req.body.priority;
-  const type = req.body.type;
-  const validity = req.body.validity;
-  const review = req.body.review;
-  const rating = req.body.rating;
-  const path = "";
-  const filename = "";
-
-  AdvertisementModel.create({
-    name: name,
-    email: email,
-    mobileno: mobileno,
-    password: password,
     filepath: path,
     filename: filename,
   })

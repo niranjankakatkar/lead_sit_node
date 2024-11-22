@@ -1,6 +1,9 @@
 const mongoose = require("../config/dbConfig");
 
 const PushNotificationSchema = new mongoose.Schema({
+  moduleId: String,
+  categoryId: String,
+  subcategoryId: String,
   title: String,
   filename: String,
   filepath: String,

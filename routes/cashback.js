@@ -26,6 +26,9 @@ router.post("/uploadimg", upload.single("file"), async (req, res) => {
 });
 
 router.post("/createCashbackImg", upload.single("file"), async (req, res) => {
+  const moduleId = req.body.moduleId;
+  const categoryId = req.body.categoryId;
+  const subcategoryId = req.body.subcategoryId;
   const title = req.body.title;
   const customer = req.body.customer;
   const cashback = req.body.cashback;
@@ -37,6 +40,9 @@ router.post("/createCashbackImg", upload.single("file"), async (req, res) => {
   const { path, filename } = req.file;
 
   CashbackModel.create({
+    moduleId: moduleId,
+    categoryId: categoryId,
+    subcategoryId: subcategoryId,
     title: title,
     customer: customer,
     cashback: cashback,
