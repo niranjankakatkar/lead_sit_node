@@ -51,6 +51,30 @@ router.post('/createUser',(req,res)=>{
     .catch(err=>res.json(err))
 })
 
+router.get('/editUser/:id',(req,res)=>{
+    const id=req.params.id
+    UserModel.findOneAndUpdate({ _id: id})
+    .then(post=>res.json(post))
+    .catch(err=>res.json(err))
+})
+
+router.post('/editUser/:id',(req,res)=>{
+   
+    const name=req.body.name;
+    const email=req.body.email;
+    const mobileno=req.body.mobileno;
+   
+    UserModel.findByIdAndUpdate({_id:req.params.id},{
+        $set:{
+            name: name,
+            email: email,
+            mobileno: mobileno
+        }
+    })
+    .then(users=>res.json({status:"ok",date:"updated"}))
+    .catch(err=>res.json(err))
+})
+
 router.get('/getAllUser',(req,res)=>{
     UserModel.find()
     .then(users=>res.json(users))
