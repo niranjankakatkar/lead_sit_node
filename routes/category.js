@@ -49,7 +49,7 @@ router.get("/getAllCategory", (req, res) => {
 router.get("/getCategoriesByModule/:moduleId", (req, res) => {
   const moduleId = req.params.moduleId;
 
-  CategoryModel.find({ moduleID: moduleId }) // Updated to `moduleID`
+  CategoryModel.find({ moduleId: moduleId }) // Updated to `moduleID`
     .then((categories) => {
       if (categories.length === 0) {
         return res
