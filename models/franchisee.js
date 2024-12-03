@@ -1,14 +1,8 @@
 const mongoose = require("../config/dbConfig");
 
 const franchiseeSchema = new mongoose.Schema({
-  franchisee: String,
-  oname: String,
-  email: String,
-  mobileno: String,
-  address: String,
-  password: String,
-  filename:String,
-  filepath:String, 
+  userID: String,
+  transactionID: String,
   moduleID:String,
   activeFlag: { type: String, enum: ["1", "0"], default: "1" },
   deleteFlag: { type: String, enum: ["1", "0"], default: "0" },
